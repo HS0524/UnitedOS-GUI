@@ -3,7 +3,7 @@
 UnitedOS is a desktop utility application written in Java and Swing. It brings several small productivity and learning tools together behind a sign-in screen.
 
 ## Demo
- - [text](https://drive.google.com/drive/folders/133htcgfDWfi7_8V8i_gMr2FVxb6NdTWg?usp=drive_link)
+ - [UnitedOS.mov](https://drive.google.com/drive/folders/133htcgfDWfi7_8V8i_gMr2FVxb6NdTWg?usp=drive_link)
 
 ## Features
 
