@@ -1,0 +1,25 @@
+# NetBeans and Ant build output
+/build/
+/dist/
+/nbdist/
+/nbbuild/
+
+# Local application data and encryption material
+/AccountManager.txt
+/AccountManagerAES.txt
+/secretKey.key
+/GPA.txt
+
+# Compiled Java artifacts
+*.class
+*.jar
+!kotlin-onetimepassword-2.4.1.jar
+
+# IDE and operating system files
+/nbproject/private/
+.DS_Store
+Thumbs.db
+
+# Local editor settings
+.idea/
+.vscode/

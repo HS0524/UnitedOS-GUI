@@ -1,0 +1,24 @@
+# Profile Settings
+Account Page: 1
+
+
+#Physics Calculator Functions
+#Physics: 0
+Accepted Acceleration: 1
+Net Force: 1
+Percentage Error: 1
+Percentage Difference: 1
+Tension Force: 1
+Radial Force: 1
+Total Momentum: 1
+Total Kinetic Energy: 1
+
+
+# Pop Up Window Options
+Basic Calculator: 1
+Space Calculator: 1
+Gpa Calculator: 0
+
+# Login Page
+Create Account: 1
+Quick Login:1

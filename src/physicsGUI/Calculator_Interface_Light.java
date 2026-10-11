@@ -1,0 +1,2705 @@
+package physicsGUI;
+
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import java.awt.Desktop;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.SwingUtilities;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+
+
+/**
+ * Calculator Interface Home screen of app
+ *
+ * @author Harshil Shah
+ */
+public class Calculator_Interface_Light extends javax.swing.JFrame {
+
+    private Basic_Calculator_Interface basic_Calculator; // Reference to calculator
+    private final List<Basic_Calculator_Interface> calculators = new ArrayList<>(); // List of open calculators
+
+    private Encryptor_Interface encryptor_Interface; // Reference to encryptor interface
+    private final List<Encryptor_Interface> encryptors = new ArrayList<>(); // List of open calculators
+
+    private Account_Interface account_Interface; // Reference to account interface
+    private final List<Account_Interface> accounts = new ArrayList<>(); // List of open calculators
+
+    private Space_Interface space_Interface; // Reference to space interface
+    private final List<Space_Interface> spaceCalcs = new ArrayList<>(); // List of open calculators
+
+    private GpaCalc_Interface GpaCalc_Interface; // Reference to gpa calc interface
+    private final List<GpaCalc_Interface> gpaCalcs = new ArrayList<>(); // List of open calculators
+
+    //Login_Interface login = new Login_Interface(this);
+//   Support: https://youtube.com/playlist?list=PLNHw_0qv1zy-cVdEX6HqJX2a8ZLHbG3Ox&feature=shared
+//            https://youtube.com/playlist?list=PLBdxDGjena8FoQvZMsw_74esW4gY2FBRF&feature=shared
+//            https://www.youtube.com/watch?v=zX6YtG20ScU
+    /**
+     * Creates new form Main_Interface
+     *
+     * @param Basic_Calculator_Interface
+     */
+    public Calculator_Interface_Light() {
+        //initComponents();
+
+    }
+
+    private double m1;
+    double m2;
+    double a;
+    double G = 9.81;
+    private int option = 0;
+    private Thread loopThread;
+    boolean clearText = false;
+
+    private String userInherited;
+    private String passwordInherited;
+    private String adminAccessInherited;
+    private String style;
+
+    final String pageManager = "pageManager.txt";
+
+    //Toggle ask for password when oppening account settings
+    private final Boolean askAccountPassword = true;
+
+    // Control default boolean flag for all pageManager settings
+    private final Boolean pageControlDefault = true;
+
+    int openCount = 0;
+
+    // Specify the file path (ensure to use the correct path to your file)
+    public Calculator_Interface_Light(String newUserInherited, String newPasswordInherited, String newAdminAccess) {
+        initComponents(); // initialize JFrame component
+        Map<String, Boolean> pages = readPageManager(pageManager, ":");
+
+        userInherited = newUserInherited;
+        passwordInherited = newPasswordInherited;
+        adminAccessInherited = newAdminAccess;
+
+        System.out.println("\nUser: " + newUserInherited);
+        System.out.println("Password: " + newPasswordInherited);
+        System.out.println("Admin Access: " + newAdminAccess);
+
+        unitSelection(0);
+
+        // Set inherited values
+        menuProfile1.setText(userInherited);
+
+        lblTitle.setText("Welcome, " + userInherited);
+
+        if (newAdminAccess.equals("adminAccess.true")) {
+            profileAdmin1.setEnabled(true);
+            profileAdmin1.setVisible(true);
+        } else {
+            profileAdmin1.setEnabled(false);
+            profileAdmin1.setVisible(false);
+        }
+
+        // Check if the Accepted Acceleration page is enabled
+        boolean allowed = pages.getOrDefault("Account Page", pageControlDefault);
+
+        if (!allowed) {
+            //pageDisabledMessage(); // print disabled message
+            profileSettings1.setEnabled(false);
+
+        }
+
+        CreateAccount_Interface createAccount = new CreateAccount_Interface();
+
+        if (createAccount.saveKey == false) {
+            appFile1.setEnabled(false);
+        } else {
+            appFile1.setEnabled(true);
+        }
+
+        File AccountManagerAES = new File("AccountManagerAES.txt");
+
+    }
+
+    /*
+    public Calculator_Interface_Light(Input_Interface inputInterface) {
+        this.inputInterface = inputInterface; // Reference to Input_Interface
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        // Call the method in Input_Interface to update lblVal1
+        inputInterface.updateLabel("Updated from Calculator_Interface_Light!");
+    }
+     */
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuLanguage = new javax.swing.JMenu();
+        chkmenuEnglish = new javax.swing.JCheckBoxMenuItem();
+        chkmenuSpanish = new javax.swing.JCheckBoxMenuItem();
+        chkmenuFrench = new javax.swing.JMenuItem();
+        menuAbout = new javax.swing.JMenu();
+        aboutCredits = new javax.swing.JMenuItem();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jMenu1 = new javax.swing.JMenu();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jFileChooser1 = new javax.swing.JFileChooser();
+        jDialog1 = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        calcOption = new javax.swing.JTree();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        lblSubtitle = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtAns = new javax.swing.JTextField();
+        tglClear = new javax.swing.JToggleButton();
+        tgl1 = new javax.swing.JToggleButton();
+        tglStyle = new javax.swing.JToggleButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jPanel4 = new javax.swing.JPanel();
+        lblVal2 = new javax.swing.JLabel();
+        lblVal3 = new javax.swing.JLabel();
+        txtVal2 = new javax.swing.JTextField();
+        txtVal3 = new javax.swing.JTextField();
+        lblVal1 = new javax.swing.JLabel();
+        txtVal1 = new javax.swing.JTextField();
+        lblVal4 = new javax.swing.JLabel();
+        txtVal4 = new javax.swing.JTextField();
+        weightSelect = new javax.swing.JComboBox<>();
+        heightSelect = new javax.swing.JComboBox<>();
+        calcLabel = new javax.swing.JLabel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        menuLanguage1 = new javax.swing.JMenu();
+        chkmenuEnglish1 = new javax.swing.JCheckBoxMenuItem();
+        chkmenuSpanish1 = new javax.swing.JCheckBoxMenuItem();
+        chkmenuFrench1 = new javax.swing.JMenuItem();
+        menuAbout1 = new javax.swing.JMenu();
+        aboutCredits1 = new javax.swing.JMenuItem();
+        menuProfile1 = new javax.swing.JMenu();
+        profileLogout1 = new javax.swing.JMenuItem();
+        profileExit1 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        profileSettings1 = new javax.swing.JMenuItem();
+        profileAdmin1 = new javax.swing.JMenu();
+        adminTool1 = new javax.swing.JMenu();
+        appFile1 = new javax.swing.JMenuItem();
+        appFile2 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        adminTool2 = new javax.swing.JMenuItem();
+        admintool3 = new javax.swing.JMenuItem();
+        menuCalculator1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        menuAcceptedAcceleration = new javax.swing.JMenuItem();
+        menuNetForce = new javax.swing.JMenuItem();
+        menuPercentageError = new javax.swing.JMenuItem();
+        menuTensionForce = new javax.swing.JMenuItem();
+        menuRadialForce = new javax.swing.JMenuItem();
+        menuTotalMomentum = new javax.swing.JMenuItem();
+        menuTotalKineticEnergy = new javax.swing.JMenuItem();
+
+        jMenuBar1.setBackground(new java.awt.Color(204, 204, 204));
+
+        menuLanguage.setText("Language");
+        menuLanguage.setHideActionText(true);
+
+        chkmenuEnglish.setSelected(true);
+        chkmenuEnglish.setText("English");
+        chkmenuEnglish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkmenuEnglishActionPerformed(evt);
+            }
+        });
+        menuLanguage.add(chkmenuEnglish);
+
+        chkmenuSpanish.setText("Espanol");
+        chkmenuSpanish.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkmenuSpanishActionPerformed(evt);
+            }
+        });
+        menuLanguage.add(chkmenuSpanish);
+
+        chkmenuFrench.setText("French");
+        chkmenuFrench.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkmenuFrenchActionPerformed(evt);
+            }
+        });
+        menuLanguage.add(chkmenuFrench);
+
+        jMenuBar1.add(menuLanguage);
+
+        menuAbout.setText("About");
+
+        aboutCredits.setText("Credits");
+        aboutCredits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutCreditsActionPerformed(evt);
+            }
+        });
+        menuAbout.add(aboutCredits);
+
+        jMenuBar1.add(menuAbout);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        jMenu1.setText("jMenu1");
+
+        jDialog1.setEnabled(false);
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("United OS - Home");
+        setBackground(new java.awt.Color(0, 0, 0));
+        setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        calcOption.setBackground(new java.awt.Color(204, 255, 204));
+        calcOption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 51, 255)));
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Calculator Options");
+        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Physics");
+        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Accepted Acceleration");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Net Force");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Percentage Error");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Percentage Difference");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Tension Force");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Radial Force");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Total Momentum");
+        treeNode2.add(treeNode3);
+        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("Total Kinetic Energy");
+        treeNode2.add(treeNode3);
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("BMI Calculator");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Basic Calculator");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Space Weight Calculator");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Grade Point Average");
+        treeNode1.add(treeNode2);
+        calcOption.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        calcOption.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        calcOption.setDropMode(javax.swing.DropMode.ON);
+        calcOption.setToggleClickCount(1);
+        calcOption.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                calcOptionMouseClicked(evt);
+            }
+        });
+        calcOption.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                calcOptionComponentHidden(evt);
+            }
+        });
+        jScrollPane2.setViewportView(calcOption);
+
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
+        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+
+        lblSubtitle.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        lblSubtitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblSubtitle.setText("Select a Service On the Left");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblSubtitle, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblSubtitle)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        lblTitle.setBackground(new java.awt.Color(255, 204, 204));
+        lblTitle.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitle.setText("Welcome, User");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addComponent(lblTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(153, 0, 255)));
+        jPanel2.setForeground(new java.awt.Color(255, 102, 102));
+
+        txtAns.setEditable(false);
+        txtAns.setBackground(new java.awt.Color(255, 255, 204));
+        txtAns.setFont(new java.awt.Font("Noto Sans Myanmar", 0, 24)); // NOI18N
+        txtAns.setForeground(new java.awt.Color(153, 0, 51));
+        txtAns.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtAns.setText("Click 'Turn On'");
+        txtAns.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 255)));
+
+        tglClear.setSelected(true);
+        tglClear.setText("Value Clear: OFF");
+        tglClear.setBorder(new javax.swing.border.MatteBorder(null));
+        tglClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tglClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tglClearActionPerformed(evt);
+            }
+        });
+
+        tgl1.setBackground(new java.awt.Color(255, 102, 102));
+        tgl1.setFont(new java.awt.Font("K2D", 1, 18)); // NOI18N
+        tgl1.setText("Turn On");
+        tgl1.setBorder(new javax.swing.border.MatteBorder(null));
+        tgl1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tgl1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tgl1ActionPerformed(evt);
+            }
+        });
+
+        tglStyle.setText("Light Mode");
+        tglStyle.setBorder(new javax.swing.border.MatteBorder(null));
+        tglStyle.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tglStyle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tglStyleActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 40, Short.MAX_VALUE)
+                        .addComponent(txtAns, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(tglClear, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(tgl1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(tglStyle, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtAns, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tglClear, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                            .addComponent(tglStyle, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                        .addGap(15, 15, 15))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(tgl1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+
+        jScrollPane3.setBackground(new java.awt.Color(153, 153, 255));
+
+        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 153, 153)));
+
+        lblVal2.setFont(new java.awt.Font("Futura", 1, 24)); // NOI18N
+        lblVal2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblVal2.setText("Value 2");
+
+        lblVal3.setFont(new java.awt.Font("Futura", 1, 24)); // NOI18N
+        lblVal3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblVal3.setText("Value 3");
+
+        txtVal2.setBackground(new java.awt.Color(204, 255, 255));
+        txtVal2.setFont(new java.awt.Font("Malayalam Sangam MN", 1, 18)); // NOI18N
+        txtVal2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 255)));
+        txtVal2.setEnabled(false);
+
+        txtVal3.setBackground(new java.awt.Color(204, 255, 255));
+        txtVal3.setFont(new java.awt.Font("Malayalam Sangam MN", 1, 18)); // NOI18N
+        txtVal3.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 255)));
+        txtVal3.setEnabled(false);
+
+        lblVal1.setFont(new java.awt.Font("Futura", 1, 24)); // NOI18N
+        lblVal1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblVal1.setText("Value 1");
+
+        txtVal1.setBackground(new java.awt.Color(204, 255, 255));
+        txtVal1.setFont(new java.awt.Font("Malayalam Sangam MN", 1, 18)); // NOI18N
+        txtVal1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 255)));
+        txtVal1.setEnabled(false);
+
+        lblVal4.setFont(new java.awt.Font("Futura", 1, 24)); // NOI18N
+        lblVal4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblVal4.setText("Value 4");
+
+        txtVal4.setBackground(new java.awt.Color(204, 255, 255));
+        txtVal4.setFont(new java.awt.Font("Malayalam Sangam MN", 1, 18)); // NOI18N
+        txtVal4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 51, 255)));
+        txtVal4.setEnabled(false);
+
+        weightSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pounds", "Kilograms" }));
+        weightSelect.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        weightSelect.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        heightSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Feet / in", "Meters" }));
+        heightSelect.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        heightSelect.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        heightSelect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                heightSelectActionPerformed(evt);
+            }
+        });
+
+        calcLabel.setBackground(new java.awt.Color(255, 204, 204));
+        calcLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        calcLabel.setForeground(new java.awt.Color(0, 0, 255));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(lblVal4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtVal4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(weightSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblVal1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(heightSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblVal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblVal3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtVal3, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtVal1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtVal2, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(62, 62, 62))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(calcLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtVal1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblVal1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(weightSelect))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblVal2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtVal2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(heightSelect))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblVal3)
+                    .addComponent(txtVal3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblVal4)
+                    .addComponent(txtVal4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(calcLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+
+        jScrollPane3.setViewportView(jPanel4);
+
+        jMenuBar2.setBackground(new java.awt.Color(204, 204, 204));
+
+        menuLanguage1.setText("Language");
+        menuLanguage1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuLanguage1.setHideActionText(true);
+
+        chkmenuEnglish1.setSelected(true);
+        chkmenuEnglish1.setText("English");
+        chkmenuEnglish1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        chkmenuEnglish1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkmenuEnglish1ActionPerformed(evt);
+            }
+        });
+        menuLanguage1.add(chkmenuEnglish1);
+
+        chkmenuSpanish1.setText("Espanol");
+        chkmenuSpanish1.setEnabled(false);
+        chkmenuSpanish1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkmenuSpanish1ActionPerformed(evt);
+            }
+        });
+        menuLanguage1.add(chkmenuSpanish1);
+
+        chkmenuFrench1.setText("French");
+        chkmenuFrench1.setEnabled(false);
+        chkmenuFrench1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkmenuFrench1ActionPerformed(evt);
+            }
+        });
+        menuLanguage1.add(chkmenuFrench1);
+
+        jMenuBar2.add(menuLanguage1);
+
+        menuAbout1.setText("About");
+        menuAbout1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        aboutCredits1.setText("Credits");
+        aboutCredits1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        aboutCredits1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutCredits1ActionPerformed(evt);
+            }
+        });
+        menuAbout1.add(aboutCredits1);
+
+        jMenuBar2.add(menuAbout1);
+
+        menuProfile1.setText("Profile");
+        menuProfile1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        profileLogout1.setText("Logout");
+        profileLogout1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        profileLogout1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileLogout1ActionPerformed(evt);
+            }
+        });
+        menuProfile1.add(profileLogout1);
+
+        profileExit1.setText("Exit");
+        profileExit1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        profileExit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileExit1ActionPerformed(evt);
+            }
+        });
+        menuProfile1.add(profileExit1);
+        menuProfile1.add(jSeparator2);
+
+        profileSettings1.setText("Account");
+        profileSettings1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        profileSettings1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileSettings1ActionPerformed(evt);
+            }
+        });
+        menuProfile1.add(profileSettings1);
+
+        profileAdmin1.setText("Admin Tools");
+        profileAdmin1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        profileAdmin1.setEnabled(false);
+
+        adminTool1.setText("System Files");
+
+        appFile1.setText("AccountManager.txt");
+        appFile1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appFile1ActionPerformed(evt);
+            }
+        });
+        adminTool1.add(appFile1);
+
+        appFile2.setText("AccountManagerAES.txt");
+        appFile2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                appFile2ActionPerformed(evt);
+            }
+        });
+        adminTool1.add(appFile2);
+
+        jMenuItem1.setText("pageManager.txt");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        adminTool1.add(jMenuItem1);
+
+        profileAdmin1.add(adminTool1);
+
+        adminTool2.setText("Encryptor Utility");
+        adminTool2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminTool2ActionPerformed(evt);
+            }
+        });
+        profileAdmin1.add(adminTool2);
+
+        admintool3.setText("Line Count");
+        admintool3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                admintool3ActionPerformed(evt);
+            }
+        });
+        profileAdmin1.add(admintool3);
+
+        menuProfile1.add(profileAdmin1);
+
+        jMenuBar2.add(menuProfile1);
+
+        menuCalculator1.setText("Calculator");
+        menuCalculator1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenu2.setText("Physics");
+        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        menuAcceptedAcceleration.setText("Accepted Acceleration");
+        menuAcceptedAcceleration.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAcceptedAccelerationActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuAcceptedAcceleration);
+
+        menuNetForce.setText("Net Force");
+        menuNetForce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuNetForceActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuNetForce);
+
+        menuPercentageError.setText("Percentage Error");
+        menuPercentageError.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPercentageErrorActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuPercentageError);
+
+        menuTensionForce.setText("Tension Force");
+        menuTensionForce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTensionForceActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuTensionForce);
+
+        menuRadialForce.setText("Radial Force");
+        menuRadialForce.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRadialForceActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuRadialForce);
+
+        menuTotalMomentum.setText("Total Momentum");
+        menuTotalMomentum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTotalMomentumActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuTotalMomentum);
+
+        menuTotalKineticEnergy.setText("Total Kinetic Energy");
+        menuTotalKineticEnergy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuTotalKineticEnergyActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuTotalKineticEnergy);
+
+        menuCalculator1.add(jMenu2);
+
+        jMenuBar2.add(menuCalculator1);
+
+        setJMenuBar(jMenuBar2);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 2, Short.MAX_VALUE)))
+                .addGap(16, 16, 16))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        
+
+
+    }//GEN-LAST:event_formWindowClosed
+
+
+    private void chkmenuEnglishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkmenuEnglishActionPerformed
+
+//        lblLogin.setText("Enter login:");
+//        lblPassword.setText("Enter password:");
+//        //title.setText("Physics Lab Calculator");
+//
+//        if (startButton.equals(true)) {
+//            startButton.setText("Click to Start");
+//        }
+//
+//        menuLanguage.setText("Language");
+//        chkmenuSpanish.setSelected(false);
+//        chkmenuFrench.setSelected(false);
+    }//GEN-LAST:event_chkmenuEnglishActionPerformed
+
+    private void chkmenuSpanishActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkmenuSpanishActionPerformed
+
+//        lblLogin.setText("Ingrese inicio de sesión:");
+//        lblPassword.setText("Ingrese la contraseña");
+//        //title.setText("Physics Lab Calculator");
+//
+//        if (startButton.equals(true)) {
+//            startButton.setText("Haga clic para Comenzar");
+//        }
+//
+//        menuLanguage.setText("Idioma");
+//        chkmenuEnglish.setSelected(false);
+//        chkmenuFrench.setSelected(false);
+    }//GEN-LAST:event_chkmenuSpanishActionPerformed
+
+    private void chkmenuFrenchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkmenuFrenchActionPerformed
+
+//        lblLogin.setText("Entrez la connexion");
+//        lblPassword.setText("Entrez le mot de passe");
+//        //title.setText("Physics Lab Calculator");
+//
+//        if (startButton.equals(true)) {
+//            startButton.setText("cliquez pour commencer");
+//        }
+//
+//        menuLanguage.setText("langue");
+//        chkmenuEnglish.setSelected(false);
+//        chkmenuSpanish.setSelected(false);
+    }//GEN-LAST:event_chkmenuFrenchActionPerformed
+
+    private void aboutCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutCreditsActionPerformed
+        // TODO add your handling code here:
+
+        new About_Interface().setVisible(true);
+    }//GEN-LAST:event_aboutCreditsActionPerformed
+
+    private void chkmenuEnglish1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkmenuEnglish1ActionPerformed
+
+//        lblLogin.setText("Enter login:");
+//        lblPassword.setText("Enter password:");
+//        //title.setText("Physics Lab Calculator");
+//
+//        if (startButton.equals(true)) {
+//            startButton.setText("Click to Start");
+//        }
+//
+//        menuLanguage.setText("Language");
+//        chkmenuSpanish.setSelected(false);
+//        chkmenuFrench.setSelected(false);
+    }//GEN-LAST:event_chkmenuEnglish1ActionPerformed
+
+    private void chkmenuSpanish1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkmenuSpanish1ActionPerformed
+
+//        lblLogin.setText("Ingrese inicio de sesión:");
+//        lblPassword.setText("Ingrese la contraseña");
+//        //title.setText("Physics Lab Calculator");
+//
+//        if (startButton.equals(true)) {
+//            startButton.setText("Haga clic para Comenzar");
+//        }
+//
+//        menuLanguage.setText("Idioma");
+//        chkmenuEnglish.setSelected(false);
+//        chkmenuFrench.setSelected(false);
+    }//GEN-LAST:event_chkmenuSpanish1ActionPerformed
+
+    private void chkmenuFrench1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkmenuFrench1ActionPerformed
+
+//        lblLogin.setText("Entrez la connexion");
+//        lblPassword.setText("Entrez le mot de passe");
+//        //title.setText("Physics Lab Calculator");
+//
+//        if (startButton.equals(true)) {
+//            startButton.setText("cliquez pour commencer");
+//        }
+//
+//        menuLanguage.setText("langue");
+//        chkmenuEnglish.setSelected(false);
+//        chkmenuSpanish.setSelected(false);
+    }//GEN-LAST:event_chkmenuFrench1ActionPerformed
+
+    private void aboutCredits1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutCredits1ActionPerformed
+        
+
+        new About_Interface().setVisible(true);
+
+
+    }//GEN-LAST:event_aboutCredits1ActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        
+
+        //String[] options = {"Yes", "No", "Quit All"};
+        int response = JOptionPane.showConfirmDialog(null, "Select an option!\n'Yes' - Logout\n'No' - Exit Program", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        // Check the user's response
+        if (response == JOptionPane.YES_OPTION) {
+
+            logout();
+
+        } else if (response == JOptionPane.NO_OPTION) {
+            System.exit(0);
+        }
+
+    }//GEN-LAST:event_formWindowClosing
+
+    private void profileLogout1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileLogout1ActionPerformed
+        // TODO add your handling code here:
+
+        logout();
+    }//GEN-LAST:event_profileLogout1ActionPerformed
+
+    private void profileExit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileExit1ActionPerformed
+        // TODO add your handling code here:
+        System.exit(0); // quits app
+    }//GEN-LAST:event_profileExit1ActionPerformed
+
+    private void calcOptionComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_calcOptionComponentHidden
+        // TODO add your handling code here:
+    }//GEN-LAST:event_calcOptionComponentHidden
+
+    private void calcOptionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_calcOptionMouseClicked
+        // TODO add your handling code here:
+
+        // Check if the mouse event is a left-click
+        if (evt.getClickCount() == 1 && evt.getButton() == java.awt.event.MouseEvent.BUTTON1) {
+            // Get the selected node
+            javax.swing.tree.DefaultMutableTreeNode selectedNode
+                    = (javax.swing.tree.DefaultMutableTreeNode) calcOption.getLastSelectedPathComponent();
+
+            if (selectedNode != null) {
+                String nodeName = selectedNode.getUserObject().toString();
+
+                Map<String, Boolean> pages = readPageManager(pageManager, ":");
+
+                // Check which node is clicked and perform actions
+                if (nodeName.equals("Accepted Acceleration")) {
+                    System.out.println("Accepted Acceleration node clicked.");
+
+                    // Check if the Accepted Acceleration page is enabled
+                    boolean allowed = pages.getOrDefault("Accepted Acceleration", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    unitSelection(0); // enables unit selectors
+
+                    // Add specific logic for Accepted Acceleration here
+                    lblSubtitle.setText("Accepted Acceleration");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter Mass 1:");
+                    lblVal2.setText("");
+                    lblVal3.setText("Enter Mass 2:");
+                    lblVal4.setText("");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(false);
+                    txtVal2.setVisible(false);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(false);
+                    txtVal4.setVisible(false);
+
+                    if (clearText == true) {
+                        txtVal1.setText("");
+                        txtVal2.setText("");
+                        txtVal3.setText("");
+                        txtVal4.setText("");
+                    }
+
+                    changeOption(1);
+
+                } else if (nodeName.equals("Net Force")) {
+                    System.out.println("Net Force node clicked.");
+
+                    // Check if the Net Force page is enabled
+                    boolean allowed = pages.getOrDefault("Net Force", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    unitSelection(0); // enables unit selectors
+
+                    // Add specific logic for Net Force here
+                    lblSubtitle.setText("Net Force");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter MT:");
+                    lblVal2.setText("");
+                    lblVal3.setText("Enter Acceleration:");
+                    lblVal4.setText("");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(false);
+                    txtVal2.setVisible(false);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(false);
+                    txtVal4.setVisible(false);
+
+                    if (clearText == true) {
+                        txtVal1.setText("");
+                        txtVal2.setText("");
+                        txtVal3.setText("");
+                        txtVal4.setText("");
+                    }
+
+                    changeOption(2);
+
+                } else if (nodeName.equals("Percentage Error")) {
+                    System.out.println("Percentage Error node clicked.");
+
+                    // Check if the Percentage Error page is enabled
+                    boolean allowed = pages.getOrDefault("Percentage Error", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    unitSelection(0); // enables unit selectors
+
+                    // Add specific logic for Percentage Error here
+                    lblSubtitle.setText("Percentage Error");
+                    //lblSubtitle.setText("");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter Measured Value:");
+                    lblVal2.setText("");
+                    lblVal3.setText("Enter Accepted Value:");
+                    lblVal4.setText("");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(false);
+                    txtVal2.setVisible(false);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(false);
+                    txtVal4.setVisible(false);
+
+                    if (clearText == true) {
+                        txtVal1.setText("");
+                        txtVal2.setText("");
+                        txtVal3.setText("");
+                        txtVal4.setText("");
+                    }
+
+                    changeOption(3);
+                } else if (nodeName.equals("Percentage Difference")) {
+                    System.out.println("Percentage Difference node clicked.");
+
+                    // Check if the Percentage Difference page is enabled
+                    boolean allowed = pages.getOrDefault("Percentage Difference", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    unitSelection(0); // enables unit selectors
+
+                    // Add specific logic for Percentage Error here
+                    lblSubtitle.setText("Percentage Error");
+                    //lblSubtitle.setText("");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter V1:");
+                    lblVal2.setText("");
+                    lblVal3.setText("Enter V2:");
+                    lblVal4.setText("");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(false);
+                    txtVal2.setVisible(false);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(false);
+                    txtVal4.setVisible(false);
+
+                    if (clearText == true) {
+                        txtVal1.setText("");
+                        txtVal2.setText("");
+                        txtVal3.setText("");
+                        txtVal4.setText("");
+                    }
+
+                    changeOption(9);
+
+                } else if (nodeName.equals("Tension Force")) {
+                    System.out.println("Tension Force node clicked.");
+
+                    // Check if the Tension Force page is enabled
+                    boolean allowed = pages.getOrDefault("Tension Force", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    unitSelection(0); // enables unit selectors
+
+                    // Add specific logic for Tension Force here
+                    lblSubtitle.setText("Tension Force");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter Mass:");
+                    lblVal2.setText("");
+                    lblVal3.setText("Enter Acceleration:");
+                    lblVal4.setText("");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(false);
+                    txtVal2.setVisible(false);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(false);
+                    txtVal4.setVisible(false);
+
+                    if (clearText == true) {
+                        txtVal1.setText("");
+                        txtVal2.setText("");
+                        txtVal3.setText("");
+                        txtVal4.setText("");
+                    }
+
+                    changeOption(4);
+
+                } else if (nodeName.equals("Radial Force")) {
+                    System.out.println("Radial Force node clicked.");
+
+                    // Check if the Radial Force page is enabled
+                    boolean allowed = pages.getOrDefault("Radial Force", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    unitSelection(0); // enables unit selectors
+
+                    // Add specific logic for Radial Force here
+                    lblSubtitle.setText("Radial Force");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter Mass:");
+                    lblVal2.setText("Enter Velocity:");
+                    lblVal3.setText("Enter Radius:");
+                    lblVal4.setText("");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(true);
+                    txtVal2.setVisible(true);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(false);
+                    txtVal4.setVisible(false);
+
+                    if (clearText == true) {
+                        txtVal1.setText("");
+                        txtVal2.setText("");
+                        txtVal3.setText("");
+                        txtVal4.setText("");
+                    }
+
+                    changeOption(5);
+
+                } else if (nodeName.equals("Total Momentum")) {
+
+                    unitSelection(0); // enables unit selectors
+
+                    System.out.println("Total Momentum node clicked.");
+
+                    // Check if the Total Momentum page is enabled
+                    boolean allowed = pages.getOrDefault("Total Momentum", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    // Add specific logic for Total Momentum here
+                    lblSubtitle.setText("Total Momentum");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter Mass 1:");
+                    lblVal2.setText("Enter Mass 2:");
+                    lblVal3.setText("Enter Velocity 1:");
+                    lblVal4.setText("Enter Velocity 2:");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(true);
+                    txtVal2.setVisible(true);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(true);
+                    txtVal4.setVisible(true);
+
+                    if (clearText == true) {
+                        txtVal1.setText("");
+                        txtVal2.setText("");
+                        txtVal3.setText("");
+                        txtVal4.setText("");
+                    }
+
+                    changeOption(6);
+
+                } else if (nodeName.equals("Total Kinetic Energy")) {
+                    System.out.println("Total Kinetic Energy node clicked.");
+
+                    // Check if the Total Kinetic Energy page is enabled
+                    boolean allowed = pages.getOrDefault("Total Kinetic Energy", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    unitSelection(0); // enables unit selectors
+
+                    // Add specific logic for Total Kinetic Energy here
+                    lblSubtitle.setText("Total Kinetic Energy");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter Mass 1:");
+                    lblVal2.setText("Enter Mass 2:");
+                    lblVal3.setText("Enter Velocity 1:");
+                    lblVal4.setText("Enter Velocity 2:");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(true);
+                    txtVal2.setVisible(true);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(true);
+                    txtVal4.setVisible(true);
+
+                    if (clearText == true) {
+                        txtVal1.setText("");
+                        txtVal2.setText("");
+                        txtVal3.setText("");
+                        txtVal4.setText("");
+                    }
+
+                    changeOption(7);
+
+                } else if (nodeName.equals("BMI Calculator")) {
+
+                    unitSelection(1); // enables unit selectors
+
+                    System.out.println("BMI Calculator node clicked.");
+
+                    // Add specific logic for Total Kinetic Energy here
+                    lblSubtitle.setText("Body Mass Index");
+
+                    lblVal1.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal2.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal3.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+                    lblVal4.setFont(new java.awt.Font("Futura", 0, 18)); // NOI18N;
+
+                    lblVal1.setText("Enter your weight:");
+                    lblVal2.setText("Height in feet:");
+                    lblVal3.setText("Height in inch:");
+                    lblVal4.setText("");
+
+                    txtVal1.setEnabled(true);
+                    txtVal1.setVisible(true);
+
+                    txtVal2.setEnabled(true);
+                    txtVal2.setVisible(true);
+
+                    txtVal3.setEnabled(true);
+                    txtVal3.setVisible(true);
+
+                    txtVal4.setEnabled(false);
+                    txtVal4.setVisible(false);
+
+                    changeOption(8);
+
+                } else if (nodeName.equals("Basic Calculator")) {
+
+                    // Check if the basicCalc page is enabled
+                    boolean allowed = pages.getOrDefault("Basic Calculator", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    unitSelection(0); // enables unit selectors
+
+                    // Opens the calculator
+                    basic_Calculator = new Basic_Calculator_Interface(this); // Store calculator reference
+                    openBasicCalculator();
+
+                    openCount++;
+
+                    calculators.add(basic_Calculator); // Store reference
+                    System.out.println("Basic Calculator node clicked. (" + calculators.size() + ")");
+
+                } else if (nodeName.equals("Space Weight Calculator")) {
+
+                    // Check if the SpaceCalc page is enabled
+                    boolean allowed = pages.getOrDefault("Space Calculator", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    space_Interface = new Space_Interface(this); // Store calculator reference
+
+                    openCount++;
+
+                    spaceCalcs.add(space_Interface); // Store reference
+                    System.out.println("Space Calculator node clicked. (" + spaceCalcs.size() + ")");
+
+                    space_Interface.setVisible(true);
+
+                } else if (nodeName.equals("Grade Point Average")) {
+
+                    //Map<String, Boolean> pages = readPageManager(pageManager, ":");
+                    // Check if the gpaCalc page is enabled
+                    boolean allowed = pages.getOrDefault("Gpa Calculator", pageControlDefault);
+
+                    if (!allowed) {
+                        pageDisabledMessage(); // print disabled message
+
+                        return; // STOP opening the page
+                    }
+
+                    GpaCalc_Interface = new GpaCalc_Interface(this); // Store calculator reference
+
+                    openCount++;
+
+                    gpaCalcs.add(GpaCalc_Interface); // Store reference
+                    System.out.println("Space Calculator node clicked. (" + spaceCalcs.size() + ")");
+
+                    GpaCalc_Interface.setVisible(true);
+
+                } else {
+                    System.out.println("Unknown node clicked: " + nodeName);
+                }
+            }
+        }
+
+    }//GEN-LAST:event_calcOptionMouseClicked
+
+    private void tgl1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tgl1ActionPerformed
+        // TODO add your handling code here:
+
+        if (tgl1.isSelected()) {
+            System.out.println("Button is ON");
+            tgl1.setText("");
+            tgl1.setBackground(Color.green);
+
+            txtAns.setText("");
+            txtVal1.enable(true);
+            //txtVal2.enable(false);
+            txtVal3.enable(true);
+
+            // Start the loop in a separate thread when button is on
+            startWhileLoop();
+
+        } else {
+            System.out.println("Button is OFF");
+            tgl1.setText("Turn ON");
+            tgl1.setBackground(Color.red);
+
+            txtAns.setText("System Disabled");
+
+            txtVal1.enable(false);
+            txtVal2.enable(false);
+            txtVal3.enable(false);
+
+            txtVal1.setText("");
+            txtVal2.setText("");
+            txtVal3.setText("");
+            txtVal4.setText("");
+
+            // Stop the loop when the button is off
+            stopWhileLoop();
+        }
+
+    }//GEN-LAST:event_tgl1ActionPerformed
+
+    private void tglClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglClearActionPerformed
+        // TODO add your handling code here:
+
+        if (tglClear.isSelected()) {
+            System.out.println("Value clear is Off");
+            tglClear.setText("Value Clear: OFF");
+            //tglClear.setBackground(Color.green);
+            clearText = false;
+
+        } else {
+            System.out.println("Value clear is ON");
+            tglClear.setText("Value Clear: ON");
+            //tglClear.setBackground(Color.red);
+
+            clearText = true;
+
+            txtVal1.setText("");
+            txtVal2.setText("");
+            txtVal3.setText("");
+
+        }
+    }//GEN-LAST:event_tglClearActionPerformed
+
+    private void appFile1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appFile1ActionPerformed
+        // TODO add your handling code here:
+
+        File file = new File("AccountManager.txt");
+
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                // Open the file with the default application associated with the file type
+                desktop.open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Desktop is not supported on this platform.");
+        }
+
+    }//GEN-LAST:event_appFile1ActionPerformed
+
+    private void appFile2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_appFile2ActionPerformed
+        // TODO add your handling code here:
+
+        File file = new File("AccountManagerAES.txt");
+
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                // Open the file with the default application associated with the file type
+                desktop.open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Desktop is not supported on this platform.");
+        }
+    }//GEN-LAST:event_appFile2ActionPerformed
+
+    private void menuAcceptedAccelerationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAcceptedAccelerationActionPerformed
+        // TODO add your handling code here:
+
+        clickNode("Accepted Acceleration");
+
+
+    }//GEN-LAST:event_menuAcceptedAccelerationActionPerformed
+
+    private void menuNetForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuNetForceActionPerformed
+        // TODO add your handling code here:
+
+        clickNode("Net Force");
+
+    }//GEN-LAST:event_menuNetForceActionPerformed
+
+    private void menuPercentageErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPercentageErrorActionPerformed
+        // TODO add your handling code here:
+
+        clickNode("Percentage Error");
+
+    }//GEN-LAST:event_menuPercentageErrorActionPerformed
+
+    private void menuTensionForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTensionForceActionPerformed
+        // TODO add your handling code here:
+
+        clickNode("Tension Force");
+
+    }//GEN-LAST:event_menuTensionForceActionPerformed
+
+    private void menuRadialForceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRadialForceActionPerformed
+        // TODO add your handling code here:
+
+        clickNode("Radial Force");
+
+    }//GEN-LAST:event_menuRadialForceActionPerformed
+
+    private void menuTotalMomentumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTotalMomentumActionPerformed
+        // TODO add your handling code here:
+
+        clickNode("Total Momentum");
+
+    }//GEN-LAST:event_menuTotalMomentumActionPerformed
+
+    private void menuTotalKineticEnergyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuTotalKineticEnergyActionPerformed
+        // TODO add your handling code here:
+
+        clickNode("Total Kinetic Energy");
+
+    }//GEN-LAST:event_menuTotalKineticEnergyActionPerformed
+
+    private void adminTool2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminTool2ActionPerformed
+        encryptor_Interface = new Encryptor_Interface(this); // direct reference
+        encryptor_Interface.setLocationRelativeTo(null);
+        encryptor_Interface.setVisible(true);
+
+        encryptors.add(encryptor_Interface); // Add to the list
+        openCount++;
+        System.out.println("Encryptor opened: (" + encryptors.size() + ")");
+    }//GEN-LAST:event_adminTool2ActionPerformed
+
+    private void profileSettings1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileSettings1ActionPerformed
+        // TODO add your handling code here:
+
+        String inputText = passwordInherited; // defaults to allow
+
+        //comment below to disable ask password
+        if (askAccountPassword == true) {
+            inputText = JOptionPane.showInputDialog(null, "Enter your account password:", "Input Dialog", JOptionPane.PLAIN_MESSAGE);
+        }
+
+        
+        if (inputText.trim().isEmpty()) {
+            // Fields are empty
+            JOptionPane.showMessageDialog(Calculator_Interface_Light.this, "Fields cannot be blank");
+        } else if (inputText != null && !inputText.trim().isEmpty() && inputText.equals(passwordInherited)) {
+            //JOptionPane.showMessageDialog(null, "You entered: " + inputText);
+
+            account_Interface = new Account_Interface(userInherited, passwordInherited, adminAccessInherited, this); // or reference to existing one
+            //Account_Interface accountFrame = new Account_Interface(userInherited, passwordInherited, adminAccessInherited, this); // or reference to existing one
+
+            accounts.add(account_Interface); // Add to the list
+            openCount++;
+
+            //Calculator_Interface passCredsNonAdmin = new Calculator_Interface_Light(usernameInput, passwordInput, "adminAccessInherited.False");
+            int alignedWidth = 255;
+            //int alignedHeight = 470; // feet of Calc interface
+            int alignedHeight = this.getHeight(); // Match feet for corner alignment
+
+            // gets reference frame of this interface
+            int refX = this.getX();
+            int refY = this.getY();
+            int refWidth = this.getWidth();
+
+            // Set location of aligned frame so its right edge aligns with reference's right edge
+            int alignedX = refX + refWidth /*- alignedWidth*/; // commented to move to right of calc frame
+            int alignedY = refY; // top aligned
+
+            account_Interface.setSize(alignedWidth, alignedHeight);
+            account_Interface.setLocation(alignedX, alignedY);
+            account_Interface.setVisible(true);
+            System.out.println("Account Interface opened");
+
+            profileSettings1.setEnabled(false); // Sets account button to off
+
+        } else if (!inputText.equals(passwordInherited)) {
+            JOptionPane.showMessageDialog(null, "Incorrect Password");
+        }
+
+
+    }//GEN-LAST:event_profileSettings1ActionPerformed
+
+    private void heightSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_heightSelectActionPerformed
+        // TODO add your handling code here:
+
+        System.out.println("pressed");
+
+        // Get feet combo box selection
+        String heightSelected = (String) heightSelect.getSelectedItem();
+
+        if ("Feet / in".equals(heightSelected)) {
+            lblVal2.setText("Height in feet:");
+            lblVal3.setText("Height in inch:");
+            txtVal3.setVisible(true);
+            txtVal3.setEditable(true);
+
+            System.out.println("if");
+        } else { // meters selected
+
+            lblVal2.setText("Height in Meters");
+            lblVal3.setText("");
+            txtVal3.setVisible(false);
+            txtVal3.setEditable(false);
+        }
+
+    }//GEN-LAST:event_heightSelectActionPerformed
+
+    private void tglStyleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglStyleActionPerformed
+        // TODO add your handling code here:
+
+        if (tglStyle.isSelected()) {
+
+            tglStyle.setText("Dark Mode");
+            //tglClear.setBackground(Color.green);
+            styleMode("1");
+
+        } else {
+
+            //String[] options = {"Yes", "No", "Quit All"};
+            if (txtVal1.getText().isBlank() || txtVal2.getText().isBlank() || txtVal3.getText().isBlank() || txtVal4.getText().isBlank()) {
+                int response = JOptionPane.showConfirmDialog(null, "Warning: This will delete values! Proceed?", "Confirm", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                // Check the user's response
+                if (response == JOptionPane.YES_OPTION) {
+
+                    tglStyle.setText("Light Mode");
+                    //styleMode("0");
+
+                    // add a check if a value is filled ask first
+                    this.dispose();
+
+                    Calculator_Interface_Light passCredsAdmin = new Calculator_Interface_Light(userInherited, passwordInherited, adminAccessInherited);
+                    passCredsAdmin.setLocationRelativeTo(null); // centers frame
+                    passCredsAdmin.setVisible(true); // Use this object, not a new one make frame visible
+
+                    //tglClear.setBackground(Color.red);
+                } else if (response == JOptionPane.NO_OPTION) {
+
+                }
+            }
+        }
+    }//GEN-LAST:event_tglStyleActionPerformed
+
+    private void admintool3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admintool3ActionPerformed
+        // TODO add your handling code here:
+
+        String lineCount = LineCounter.main(new String[0]); // run main method of LineCounter.java
+
+        txtAns.setText(lineCount);
+    }//GEN-LAST:event_admintool3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+
+        File file = new File("pageManager.txt");
+
+        if (Desktop.isDesktopSupported()) {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                // Open the file with the default application associated with the file type
+                desktop.open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Desktop is not supported on this platform.");
+        }
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Calculator_Interface_Light.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Calculator_Interface_Light.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Calculator_Interface_Light.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Calculator_Interface_Light.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+
+            public void run() {
+                new Calculator_Interface_Light().setVisible(true);
+
+                //Initializing account
+            }
+        });
+
+    }
+
+    private void AcceptedAcceleration() {
+        try {
+            String m3 = txtVal1.getText();
+            String m4 = txtVal3.getText();
+
+            //  Parse the input as a double
+            double m3d = Double.parseDouble(m3);
+            double m4d = Double.parseDouble(m4);
+            double answer = (m3d - m4d) * G / (m3d + m4d);
+
+            System.out.println(answer);
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+
+    private void NetForce() {
+        try {
+            String m3 = txtVal1.getText();
+            String m4 = txtVal3.getText();
+
+            //  Parse the input as a double
+            double m3d = Double.parseDouble(m3);
+            double m4d = Double.parseDouble(m4);
+
+            double answer = m3d * m4d; // MT * A
+
+            System.out.println(answer);
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+
+    private void PercentageError() {
+        try {
+            String m3 = txtVal1.getText(); // measured
+            String m4 = txtVal3.getText(); // accepted
+
+            //  Parse the input as a double
+            double m3d = Double.parseDouble(m3);
+            double m4d = Double.parseDouble(m4);
+
+            // double percentageError = ((measuredValue - acceptedValue) / acceptedValue) * 100;
+            double answer = ((m3d - m4d) / m4d) * 100;
+
+            // Absolute Value
+            if (answer < 0) {
+                answer = answer * -1;
+            }
+
+            System.out.println(answer);
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+
+    private void PercentageDiff() {
+        try {
+            String m3 = txtVal1.getText(); // V1
+            String m4 = txtVal3.getText(); // V2
+
+            //  Parse the input as a double
+            double m3d = Double.parseDouble(m3);
+            double m4d = Double.parseDouble(m4);
+
+            // double percentageDiff = |a - b| / ((a + b) / 2) * 100;
+            double answer = Math.abs(m3d - m4d) / ((m3d + m4d) / 2) * 100;
+
+            // Absolute Value
+            if (answer < 0) {
+                answer = answer * -1;
+            }
+
+            System.out.println(answer);
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+    
+    private void TensionForce() {
+        try {
+            String m3 = txtVal1.getText();
+            String m4 = txtVal3.getText();
+
+            //  Parse the input as a double
+            double m3d = Double.parseDouble(m3);
+            double m4d = Double.parseDouble(m4);
+
+            // double tensionForce = m1 * g - m1 * a;
+            double answer = m3d * G - m3d * m4d;
+
+            System.out.println(answer);
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+
+    private void RadialForce() {
+        try {
+            String m3 = txtVal1.getText(); // mass
+            String m4 = txtVal2.getText(); // velocity
+            String m5 = txtVal3.getText(); // radius
+
+            //  Parse the input as a double
+            double m3d = Double.parseDouble(m3);
+            double m4d = Double.parseDouble(m4);
+            double m5d = Double.parseDouble(m5);
+
+            //double radialForce = (m1 * velocity * velocity) / radius;
+            double answer = (m3d * m4d * m4d) * m5d;
+
+            System.out.println(answer);
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+
+    private void TotalMomentum() {
+        try {
+            String m3 = txtVal1.getText(); // mass 1
+            String m4 = txtVal2.getText(); // mass 2
+            String m5 = txtVal3.getText(); // velocity 1
+            String m6 = txtVal4.getText(); // velocity 2
+            //String m6;
+            double answer;
+
+            //  Parse the input as a double
+            double m3d = Double.parseDouble(m3);
+            double m4d = Double.parseDouble(m4);
+            double m5d = Double.parseDouble(m5);
+            double m6d = Double.parseDouble(m6);
+
+            //double momentum = (m1 * v1) + (m2 * v2);
+            answer = (m3d * m5d) + (m4d * m6d);
+            System.out.println(answer);
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+
+    private void TotalKineticEnergy() {
+        try {
+            String m3 = txtVal1.getText(); // mass 1
+            String m4 = txtVal2.getText(); // mass 2
+            String m5 = txtVal3.getText(); // velocity 1
+            String m6 = txtVal4.getText(); // velocity 2
+            //String m6;
+            double answer;
+
+            //  Parse the input as a double
+            double m3d = Double.parseDouble(m3);
+            double m4d = Double.parseDouble(m4);
+            double m5d = Double.parseDouble(m5);
+            double m6d = Double.parseDouble(m6);
+
+            //double kineticEnergy = (m1 * v1 * v1) / 2 + (m2 * v2 * v2) / 2;
+            answer = ((m3d * (m5d * m5d)) / 2) + ((m4d * (m6d * m6d)) / 2);
+            System.out.println(answer);
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+
+    private void BMI() {
+        try {
+            String mass = txtVal1.getText(); // mass
+            String feet = txtVal2.getText(); // height: feet
+
+            
+            // Get mass combo box selection
+            String massSelected = (String) weightSelect.getSelectedItem();
+
+            // Get feet combo box selection
+            String heightSelected = (String) heightSelect.getSelectedItem();
+
+            //  Parse the input as a double
+            double massD = Double.parseDouble(mass);
+            double feetD = Double.parseDouble(feet);
+
+            if ("Feet / in".equals(heightSelected)) {
+                String inch = txtVal3.getText(); // height: inch
+                double inchD = Double.parseDouble(inch);
+
+                feetD = (feetD * 12) + inchD;
+
+            } else {
+                feetD = feetD * 39.37; // convert meters to inch
+
+            }
+            //double m6d = Double.parseDouble(m6);
+            if ("Kilograms".equals(massSelected)) {
+
+                massD = massD * 2.2046; // convert to pounds
+            }
+
+            // BMI = (Weight in pounds) / (Height in inches)^2 * 703
+            double answer = massD / (feetD * feetD) * 703;
+
+            System.out.println(answer);
+            BMISuggestion(answer); // passes to method
+
+            txtAns.setText(String.valueOf(answer));
+        } catch (NumberFormatException e) {
+            // In case of invalid input (non-numeric)
+            txtAns.setText("Invalid input");
+        }
+    }
+
+    private void BMISuggestion(double userBMI) {
+
+        userBMI = Math.round(userBMI * 100.0) / 100.0;
+
+        if (userBMI < 18.5) {
+            calcLabel.setText(userBMI + ": You are underweight");
+        } else if (userBMI >= 18.5 && userBMI < 25) {
+            calcLabel.setText(userBMI + ": You have a normal weight");
+        } else if (userBMI >= 25 && userBMI < 30) {
+            calcLabel.setText(userBMI + ": You are overweight");
+        } else {
+            calcLabel.setText(userBMI + ": You are obese");
+        }
+    }
+
+    private void startWhileLoop() {
+        // Create a new thread to run the while loop
+        if (loopThread == null || !loopThread.isAlive()) {
+            loopThread = new Thread(() -> {
+                while (tgl1.isSelected()) {
+                    
+                    System.out.println("Loop is running because button is ON");
+
+                    if (option == 1) {
+                        AcceptedAcceleration();
+                    }
+
+                    if (option == 2) {
+                        NetForce();
+                    }
+
+                    if (option == 3) {
+                        PercentageError();
+                    }
+                    
+                    if (option == 9) {
+                        PercentageDiff();
+                    }
+
+                    if (option == 4) {
+                        TensionForce();
+                    }
+
+                    if (option == 5) {
+                        RadialForce();
+                    }
+
+                    if (option == 6) {
+                        TotalMomentum();
+                    }
+
+                    if (option == 7) {
+                        TotalKineticEnergy();
+                    }
+
+                    if (option == 8) {
+                        BMI();
+                    }
+
+                    try {
+                        Thread.sleep(1000); // Add delay to prevent excessive CPU usage
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            loopThread.start(); // Start the loop thread
+        }
+    }
+
+    private void stopWhileLoop() {
+        // Interrupt the loop thread to stop the loop
+        if (loopThread != null && loopThread.isAlive()) {
+            loopThread.interrupt();
+            System.out.println("Loop stopped because button is OFF");
+        }
+    }
+
+    private DefaultMutableTreeNode findNode(DefaultMutableTreeNode root, String nodeName) {
+        Enumeration<?> enumeration = root.depthFirstEnumeration();
+        while (enumeration.hasMoreElements()) {
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) enumeration.nextElement();
+            if (nodeName.equals(node.toString())) {
+                return node;
+            }
+        }
+        return null; // Return null if not found
+    }
+
+    private void clickNode(String nodeSelected) {
+
+        String nodeName = nodeSelected;
+
+        DefaultMutableTreeNode root = (DefaultMutableTreeNode) calcOption.getModel().getRoot();
+        DefaultMutableTreeNode targetNode = findNode(root, nodeName);
+
+        if (targetNode != null) {
+            TreePath path = new TreePath(((DefaultTreeModel) calcOption.getModel()).getPathToRoot(targetNode));
+
+            // Expand tree and select node
+            calcOption.expandPath(path);
+            calcOption.setSelectionPath(path);
+            calcOption.scrollPathToVisible(path);
+
+            // Manually trigger the mouse click event
+            java.awt.event.MouseEvent fakeClick = new java.awt.event.MouseEvent(
+                    calcOption,
+                    java.awt.event.MouseEvent.MOUSE_CLICKED,
+                    System.currentTimeMillis(),
+                    0,
+                    0, 0, // X, Y positions (not important here)
+                    1, // Click count
+                    false, // Is popup trigger
+                    java.awt.event.MouseEvent.BUTTON1 // Left-click
+            );
+
+            // Call the mouse click handler with the fake event
+            calcOptionMouseClicked(fakeClick);
+        } else {
+            JOptionPane.showMessageDialog(null, "Node '" + nodeName + "' not found!");
+        }
+    }
+
+    /**
+     * changed global variable option
+     *
+     * @param select
+     */
+    private void changeOption(int select) {
+        option = select;
+    }
+
+    public void setEnableAccount() {
+        profileSettings1.setEnabled(true);
+    }
+
+    private void unitSelection(int control) {
+        if (control == 1) {
+            weightSelect.setEnabled(true);
+            weightSelect.setVisible(true);
+
+            heightSelect.setEnabled(true);
+            heightSelect.setVisible(true);
+        } else { // If disabled
+            weightSelect.setEnabled(false);
+            weightSelect.setVisible(false);
+
+            heightSelect.setEnabled(false);
+            heightSelect.setVisible(false);
+        }
+    }
+
+    private void openBasicCalculator() {
+        int alignedWidth = 217; // width of new frame
+        int alignedHeight = 340; // feet of Calc interface
+
+        // gets reference frame of this interface
+        int refX = this.getX();
+        int refY = this.getY();
+        //int refWidth = this.getWidth();
+
+        // Set location of aligned frame so its right edge aligns with reference's right edge
+        int alignedX = refX - 225; // commented to move to right of calc frame
+        int alignedY = refY + 60; // top aligned
+
+        basic_Calculator.setSize(alignedWidth, alignedHeight);
+        basic_Calculator.setLocation(alignedX, alignedY);
+        basic_Calculator.setVisible(true);
+    }
+
+    /**
+     * Reads the page configuration and returns each page's enabled state.
+     *
+     * @param filePath path to pageManager.txt
+     * @param delimiter delimiter used in file (ex: ":")
+     * @return a map where key = page name, value = true (enabled) or false
+     * (disabled)
+     */
+    public Map<String, Boolean> readPageManager(String filePath, String delimiter) {
+        Map<String, Boolean> pageStatus = new HashMap<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                
+                // Skip empty or comment lines
+                if (line.trim().isEmpty() || line.startsWith("#")) {
+                    continue;
+                }
+
+                String[] parts = line.split(delimiter);
+
+                if (parts.length < 2) {
+                    System.out.println("Skipping malformed line: " + line);
+                    continue;
+                }
+
+                String pageName = parts[0].trim();
+                String statusValue = parts[1].trim();
+
+                boolean enabled = statusValue.equals("1");
+
+                pageStatus.put(pageName, enabled);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error reading pageManager: " + e.getMessage());
+        }
+
+        return pageStatus;
+    }
+
+    public void pageDisabledMessage() {
+        JOptionPane.showMessageDialog(null,
+                "This page is currently disabled by the administrator.",
+                "Access Denied",
+                JOptionPane.WARNING_MESSAGE
+        );
+    }
+
+    public void logout() {
+        this.dispose();
+
+        for (Basic_Calculator_Interface calculator : calculators) {
+            calculator.dispose();
+        }
+
+        for (Encryptor_Interface encryptor : encryptors) {
+            encryptor.dispose();
+        }
+
+        for (Account_Interface account : accounts) {
+            account.dispose();
+        }
+
+        for (Space_Interface spaceCalc : spaceCalcs) {
+            spaceCalc.dispose();
+        }
+
+        for (GpaCalc_Interface gpaCalc : gpaCalcs) {
+            gpaCalc.dispose();
+        }
+
+        calculators.clear(); // Clear the calculator list
+        encryptors.clear(); // Clear the encryptor list
+        accounts.clear(); // Clear the account list
+        spaceCalcs.clear(); // Clear the spaceCalcs list
+
+        System.out.println("\nBasic Calculators closed: (" + calculators.size() + ")");
+        System.out.println("Encryptors closed: (" + encryptors.size() + ")");
+        System.out.println("\n" + openCount + " instances of windows closed");
+
+        // Create an instance of Input_Interface
+        Login_Interface loginFrame = new Login_Interface();
+
+        loginFrame.getTxtLogin().setFocusable(false); // disable focus on login field
+        loginFrame.getContentPane().setBackground(new java.awt.Color(205, 240, 235));
+
+        // Center the frame on the screen
+        loginFrame.setLocationRelativeTo(null);
+
+        // Make the frame visible
+        loginFrame.setVisible(true);
+
+        SwingUtilities.invokeLater(() -> loginFrame.getTxtLogin().setFocusable(true)); // Enable it again after GUI loads
+    }
+
+    public void styleMode(String mode) {
+
+        CalcInterDarkTest darkMode = new CalcInterDarkTest();
+
+        darkMode.setVisible(false);
+
+        Calculator_Interface_Light lightMode = new Calculator_Interface_Light();
+
+        lightMode.setVisible(false);
+
+        if (mode.equals("0")) {
+
+            jPanel1.setBackground(lightMode.jPanel1.getBackground());
+            jPanel1.setForeground(lightMode.jPanel1.getForeground());
+
+            aboutCredits1.setBackground(lightMode.aboutCredits1.getBackground());
+            aboutCredits1.setForeground(lightMode.aboutCredits1.getForeground());
+
+            adminTool1.setBackground(lightMode.adminTool1.getBackground());
+            adminTool1.setForeground(lightMode.adminTool1.getForeground());
+
+            adminTool2.setBackground(lightMode.adminTool2.getBackground());
+            adminTool2.setForeground(lightMode.adminTool2.getForeground());
+
+            appFile1.setBackground(lightMode.appFile1.getBackground());
+            appFile1.setForeground(lightMode.appFile1.getForeground());
+
+            appFile2.setBackground(lightMode.appFile2.getBackground());
+            appFile2.setForeground(lightMode.appFile2.getForeground());
+
+            calcOption.setBackground(lightMode.calcOption.getBackground());
+            calcOption.setForeground(lightMode.calcOption.getForeground());
+
+            chkmenuEnglish1.setBackground(lightMode.chkmenuEnglish1.getBackground());
+            chkmenuEnglish1.setForeground(lightMode.chkmenuEnglish1.getForeground());
+
+            chkmenuFrench1.setBackground(lightMode.chkmenuFrench1.getBackground());
+            chkmenuFrench1.setForeground(lightMode.chkmenuFrench1.getForeground());
+
+            chkmenuSpanish1.setBackground(lightMode.chkmenuSpanish1.getBackground());
+            chkmenuSpanish1.setForeground(lightMode.chkmenuSpanish1.getForeground());
+
+            heightSelect.setBackground(lightMode.heightSelect.getBackground());
+            heightSelect.setForeground(lightMode.heightSelect.getForeground());
+            jLabel1.setBackground(lightMode.jLabel1.getBackground());
+            jLabel1.setForeground(lightMode.jLabel1.getForeground());
+
+            jMenu2.setBackground(lightMode.jMenu2.getBackground());
+            jMenu2.setForeground(lightMode.jMenu2.getForeground());
+
+            jMenuBar2.setBackground(lightMode.jMenuBar2.getBackground());
+            jMenuBar2.setForeground(lightMode.jMenuBar2.getForeground());
+
+            jPanel1.setBackground(lightMode.jPanel1.getBackground());
+            jPanel1.setForeground(lightMode.jPanel1.getForeground());
+
+            jPanel2.setBackground(lightMode.jPanel2.getBackground());
+            jPanel2.setForeground(lightMode.jPanel2.getForeground());
+
+            jPanel3.setBackground(lightMode.jPanel3.getBackground());
+            jPanel3.setForeground(lightMode.jPanel3.getForeground());
+
+            jPanel4.setBackground(lightMode.jPanel4.getBackground());
+            jPanel4.setForeground(lightMode.jPanel4.getForeground());
+
+            jScrollPane2.setBackground(lightMode.jScrollPane2.getBackground());
+            jScrollPane2.setForeground(lightMode.jScrollPane2.getForeground());
+
+            jScrollPane3.setBackground(lightMode.jScrollPane3.getBackground());
+            jScrollPane3.setForeground(lightMode.jScrollPane3.getForeground());
+
+            jSeparator2.setBackground(lightMode.jSeparator2.getBackground());
+            jSeparator2.setForeground(lightMode.jSeparator2.getForeground());
+
+            lblSubtitle.setBackground(lightMode.lblSubtitle.getBackground());
+            lblSubtitle.setForeground(lightMode.lblSubtitle.getForeground());
+
+            lblTitle.setBackground(lightMode.lblTitle.getBackground());
+            lblTitle.setForeground(lightMode.lblTitle.getForeground());
+
+            lblVal1.setBackground(lightMode.lblVal1.getBackground());
+            lblVal1.setForeground(lightMode.lblVal1.getForeground());
+
+            lblVal2.setBackground(lightMode.lblVal2.getBackground());
+            lblVal2.setForeground(lightMode.lblVal2.getForeground());
+
+            lblVal3.setBackground(lightMode.lblVal3.getBackground());
+            lblVal3.setForeground(lightMode.lblVal3.getForeground());
+
+            lblVal4.setBackground(lightMode.lblVal4.getBackground());
+            lblVal4.setForeground(lightMode.lblVal4.getForeground());
+
+            menuAbout1.setBackground(lightMode.menuAbout1.getBackground());
+            menuAbout1.setForeground(lightMode.menuAbout1.getForeground());
+
+            menuAcceptedAcceleration.setBackground(lightMode.menuAcceptedAcceleration.getBackground());
+            menuAcceptedAcceleration.setForeground(lightMode.menuAcceptedAcceleration.getForeground());
+
+            menuCalculator1.setBackground(lightMode.menuCalculator1.getBackground());
+            menuCalculator1.setForeground(lightMode.menuCalculator1.getForeground());
+
+            menuLanguage1.setBackground(lightMode.menuLanguage1.getBackground());
+            menuLanguage1.setForeground(lightMode.menuLanguage1.getForeground());
+
+            menuNetForce.setBackground(lightMode.menuNetForce.getBackground());
+            menuNetForce.setForeground(lightMode.menuNetForce.getForeground());
+
+            menuPercentageError.setBackground(lightMode.menuPercentageError.getBackground());
+            menuPercentageError.setForeground(lightMode.menuPercentageError.getForeground());
+
+            menuProfile1.setBackground(lightMode.menuProfile1.getBackground());
+            menuProfile1.setForeground(lightMode.menuProfile1.getForeground());
+
+            menuRadialForce.setBackground(lightMode.menuRadialForce.getBackground());
+            menuRadialForce.setForeground(lightMode.menuRadialForce.getForeground());
+
+            menuTensionForce.setBackground(lightMode.menuTensionForce.getBackground());
+            menuTensionForce.setForeground(lightMode.menuTensionForce.getForeground());
+
+            menuTotalKineticEnergy.setBackground(lightMode.menuTotalKineticEnergy.getBackground());
+            menuTotalKineticEnergy.setForeground(lightMode.menuTotalKineticEnergy.getForeground());
+
+            menuTotalMomentum.setBackground(lightMode.menuTotalMomentum.getBackground());
+            menuTotalMomentum.setForeground(lightMode.menuTotalMomentum.getForeground());
+
+            profileAdmin1.setBackground(lightMode.profileAdmin1.getBackground());
+            profileAdmin1.setForeground(lightMode.profileAdmin1.getForeground());
+
+            profileExit1.setBackground(lightMode.profileExit1.getBackground());
+            profileExit1.setForeground(lightMode.profileExit1.getForeground());
+
+            profileLogout1.setBackground(lightMode.profileLogout1.getBackground());
+            profileLogout1.setForeground(lightMode.profileLogout1.getForeground());
+
+            profileSettings1.setBackground(lightMode.profileSettings1.getBackground());
+            profileSettings1.setForeground(lightMode.profileSettings1.getForeground());
+
+            tgl1.setBackground(lightMode.tgl1.getBackground());
+            tgl1.setForeground(lightMode.tgl1.getForeground());
+
+            tglClear.setBackground(lightMode.tglClear.getBackground());
+            tglClear.setForeground(lightMode.tglClear.getForeground());
+
+            txtAns.setBackground(lightMode.txtAns.getBackground());
+            txtAns.setForeground(lightMode.txtAns.getForeground());
+
+            txtVal1.setBackground(lightMode.txtVal1.getBackground());
+            txtVal1.setForeground(lightMode.txtVal1.getForeground());
+
+            txtVal2.setBackground(lightMode.txtVal2.getBackground());
+            txtVal2.setForeground(lightMode.txtVal2.getForeground());
+
+            txtVal3.setBackground(lightMode.txtVal3.getBackground());
+            txtVal3.setForeground(lightMode.txtVal3.getForeground());
+
+            txtVal4.setBackground(lightMode.txtVal4.getBackground());
+            txtVal4.setForeground(lightMode.txtVal4.getForeground());
+
+            weightSelect.setBackground(lightMode.weightSelect.getBackground());
+            weightSelect.setForeground(lightMode.weightSelect.getForeground());
+
+        } else if (mode.equals("1")) {
+
+            jPanel1.setBackground(darkMode.jPanel1.getBackground());
+            jPanel1.setForeground(darkMode.jPanel1.getForeground());
+
+            aboutCredits1.setBackground(darkMode.aboutCredits1.getBackground());
+            aboutCredits1.setForeground(darkMode.aboutCredits1.getForeground());
+
+            adminTool1.setBackground(darkMode.adminTool1.getBackground());
+            adminTool1.setForeground(darkMode.adminTool1.getForeground());
+
+            adminTool2.setBackground(darkMode.adminTool2.getBackground());
+            adminTool2.setForeground(darkMode.adminTool2.getForeground());
+
+            appFile1.setBackground(darkMode.appFile1.getBackground());
+            appFile1.setForeground(darkMode.appFile1.getForeground());
+
+            appFile2.setBackground(darkMode.appFile2.getBackground());
+            appFile2.setForeground(darkMode.appFile2.getForeground());
+
+            calcOption.setBackground(darkMode.calcOption.getBackground());
+            calcOption.setForeground(darkMode.calcOption.getForeground());
+
+            chkmenuEnglish1.setBackground(darkMode.chkmenuEnglish1.getBackground());
+            chkmenuEnglish1.setForeground(darkMode.chkmenuEnglish1.getForeground());
+
+            chkmenuFrench1.setBackground(darkMode.chkmenuFrench1.getBackground());
+            chkmenuFrench1.setForeground(darkMode.chkmenuFrench1.getForeground());
+
+            chkmenuSpanish1.setBackground(darkMode.chkmenuSpanish1.getBackground());
+            chkmenuSpanish1.setForeground(darkMode.chkmenuSpanish1.getForeground());
+
+            heightSelect.setBackground(darkMode.heightSelect.getBackground());
+            heightSelect.setForeground(darkMode.heightSelect.getForeground());
+
+            jLabel1.setBackground(darkMode.jLabel1.getBackground());
+            jLabel1.setForeground(darkMode.jLabel1.getForeground());
+
+            jMenu2.setBackground(darkMode.jMenu2.getBackground());
+            jMenu2.setForeground(darkMode.jMenu2.getForeground());
+
+            jMenuBar2.setBackground(darkMode.jMenuBar2.getBackground());
+            jMenuBar2.setForeground(darkMode.jMenuBar2.getForeground());
+
+            jPanel1.setBackground(darkMode.jPanel1.getBackground());
+            jPanel1.setForeground(darkMode.jPanel1.getForeground());
+
+            jPanel2.setBackground(darkMode.jPanel2.getBackground());
+            jPanel2.setForeground(darkMode.jPanel2.getForeground());
+
+            jPanel3.setBackground(darkMode.jPanel3.getBackground());
+            jPanel3.setForeground(darkMode.jPanel3.getForeground());
+
+            jPanel4.setBackground(darkMode.jPanel4.getBackground());
+            jPanel4.setForeground(darkMode.jPanel4.getForeground());
+
+            jScrollPane2.setBackground(darkMode.jScrollPane2.getBackground());
+            jScrollPane2.setForeground(darkMode.jScrollPane2.getForeground());
+
+            jScrollPane3.setBackground(darkMode.jScrollPane3.getBackground());
+            jScrollPane3.setForeground(darkMode.jScrollPane3.getForeground());
+
+            jSeparator2.setBackground(darkMode.jSeparator2.getBackground());
+            jSeparator2.setForeground(darkMode.jSeparator2.getForeground());
+
+            lblSubtitle.setBackground(darkMode.lblSubtitle.getBackground());
+            lblSubtitle.setForeground(darkMode.lblSubtitle.getForeground());
+
+            lblTitle.setBackground(darkMode.lblTitle.getBackground());
+            lblTitle.setForeground(darkMode.lblTitle.getForeground());
+
+            lblVal1.setBackground(darkMode.lblVal1.getBackground());
+            lblVal1.setForeground(darkMode.lblVal1.getForeground());
+
+            lblVal2.setBackground(darkMode.lblVal2.getBackground());
+            lblVal2.setForeground(darkMode.lblVal2.getForeground());
+
+            lblVal3.setBackground(darkMode.lblVal3.getBackground());
+            lblVal3.setForeground(darkMode.lblVal3.getForeground());
+
+            lblVal4.setBackground(darkMode.lblVal4.getBackground());
+            lblVal4.setForeground(darkMode.lblVal4.getForeground());
+
+            menuAbout1.setBackground(darkMode.menuAbout1.getBackground());
+            menuAbout1.setForeground(darkMode.menuAbout1.getForeground());
+
+            menuAcceptedAcceleration.setBackground(darkMode.menuAcceptedAcceleration.getBackground());
+            menuAcceptedAcceleration.setForeground(darkMode.menuAcceptedAcceleration.getForeground());
+
+            menuCalculator1.setBackground(darkMode.menuCalculator1.getBackground());
+            menuCalculator1.setForeground(darkMode.menuCalculator1.getForeground());
+
+            menuLanguage1.setBackground(darkMode.menuLanguage1.getBackground());
+            menuLanguage1.setForeground(darkMode.menuLanguage1.getForeground());
+
+            menuNetForce.setBackground(darkMode.menuNetForce.getBackground());
+            menuNetForce.setForeground(darkMode.menuNetForce.getForeground());
+
+            menuPercentageError.setBackground(darkMode.menuPercentageError.getBackground());
+            menuPercentageError.setForeground(darkMode.menuPercentageError.getForeground());
+
+            menuProfile1.setBackground(darkMode.menuProfile1.getBackground());
+            menuProfile1.setForeground(darkMode.menuProfile1.getForeground());
+
+            menuRadialForce.setBackground(darkMode.menuRadialForce.getBackground());
+            menuRadialForce.setForeground(darkMode.menuRadialForce.getForeground());
+
+            menuTensionForce.setBackground(darkMode.menuTensionForce.getBackground());
+            menuTensionForce.setForeground(darkMode.menuTensionForce.getForeground());
+
+            menuTotalKineticEnergy.setBackground(darkMode.menuTotalKineticEnergy.getBackground());
+            menuTotalKineticEnergy.setForeground(darkMode.menuTotalKineticEnergy.getForeground());
+
+            menuTotalMomentum.setBackground(darkMode.menuTotalMomentum.getBackground());
+            menuTotalMomentum.setForeground(darkMode.menuTotalMomentum.getForeground());
+
+            profileAdmin1.setBackground(darkMode.profileAdmin1.getBackground());
+            profileAdmin1.setForeground(darkMode.profileAdmin1.getForeground());
+
+            profileExit1.setBackground(darkMode.profileExit1.getBackground());
+            profileExit1.setForeground(darkMode.profileExit1.getForeground());
+
+            profileLogout1.setBackground(darkMode.profileLogout1.getBackground());
+            profileLogout1.setForeground(darkMode.profileLogout1.getForeground());
+
+            profileSettings1.setBackground(darkMode.profileSettings1.getBackground());
+            profileSettings1.setForeground(darkMode.profileSettings1.getForeground());
+
+            tgl1.setBackground(darkMode.tgl1.getBackground());
+            tgl1.setForeground(darkMode.tgl1.getForeground());
+
+            tglClear.setBackground(darkMode.tglClear.getBackground());
+            tglClear.setForeground(darkMode.tglClear.getForeground());
+
+            txtAns.setBackground(darkMode.txtAns.getBackground());
+            txtAns.setForeground(darkMode.txtAns.getForeground());
+
+            txtVal1.setBackground(darkMode.txtVal1.getBackground());
+            txtVal1.setForeground(darkMode.txtVal1.getForeground());
+
+            txtVal2.setBackground(darkMode.txtVal2.getBackground());
+            txtVal2.setForeground(darkMode.txtVal2.getForeground());
+
+            txtVal3.setBackground(darkMode.txtVal3.getBackground());
+            txtVal3.setForeground(darkMode.txtVal3.getForeground());
+
+            txtVal4.setBackground(darkMode.txtVal4.getBackground());
+            txtVal4.setForeground(darkMode.txtVal4.getForeground());
+
+            weightSelect.setBackground(darkMode.weightSelect.getBackground());
+            weightSelect.setForeground(darkMode.weightSelect.getForeground());
+
+        }
+
+        darkMode.dispose();
+        lightMode.dispose();
+    }
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutCredits;
+    private javax.swing.JMenuItem aboutCredits1;
+    private javax.swing.JMenu adminTool1;
+    private javax.swing.JMenuItem adminTool2;
+    private javax.swing.JMenuItem admintool3;
+    private javax.swing.JMenuItem appFile1;
+    private javax.swing.JMenuItem appFile2;
+    private javax.swing.JLabel calcLabel;
+    private javax.swing.JTree calcOption;
+    private javax.swing.JCheckBoxMenuItem chkmenuEnglish;
+    private javax.swing.JCheckBoxMenuItem chkmenuEnglish1;
+    private javax.swing.JMenuItem chkmenuFrench;
+    private javax.swing.JMenuItem chkmenuFrench1;
+    private javax.swing.JCheckBoxMenuItem chkmenuSpanish;
+    private javax.swing.JCheckBoxMenuItem chkmenuSpanish1;
+    private javax.swing.JComboBox<String> heightSelect;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JLabel lblSubtitle;
+    public javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblVal1;
+    private javax.swing.JLabel lblVal2;
+    private javax.swing.JLabel lblVal3;
+    private javax.swing.JLabel lblVal4;
+    private javax.swing.JMenu menuAbout;
+    private javax.swing.JMenu menuAbout1;
+    private javax.swing.JMenuItem menuAcceptedAcceleration;
+    private javax.swing.JMenu menuCalculator1;
+    private javax.swing.JMenu menuLanguage;
+    private javax.swing.JMenu menuLanguage1;
+    private javax.swing.JMenuItem menuNetForce;
+    private javax.swing.JMenuItem menuPercentageError;
+    private javax.swing.JMenu menuProfile1;
+    private javax.swing.JMenuItem menuRadialForce;
+    private javax.swing.JMenuItem menuTensionForce;
+    private javax.swing.JMenuItem menuTotalKineticEnergy;
+    private javax.swing.JMenuItem menuTotalMomentum;
+    private javax.swing.JMenu profileAdmin1;
+    private javax.swing.JMenuItem profileExit1;
+    private javax.swing.JMenuItem profileLogout1;
+    private javax.swing.JMenuItem profileSettings1;
+    private javax.swing.JToggleButton tgl1;
+    private javax.swing.JToggleButton tglClear;
+    private javax.swing.JToggleButton tglStyle;
+    private javax.swing.JTextField txtAns;
+    private javax.swing.JTextField txtVal1;
+    private javax.swing.JTextField txtVal2;
+    private javax.swing.JTextField txtVal3;
+    private javax.swing.JTextField txtVal4;
+    private javax.swing.JComboBox<String> weightSelect;
+    // End of variables declaration//GEN-END:variables
+}
